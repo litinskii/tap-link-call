@@ -29,4 +29,15 @@ npm run typecheck
 npm run build
 ```
 
+## Cloudflare Workers deployment
+
+The app is deployed as static assets only; there is no backend Worker entry point.
+
+```bash
+npm run preview
+npm run deploy
+```
+
+Wrangler publishes `./dist` and serves `index.html` as the fallback for SPA routes.
+
 Development builds include a per-peer diagnostics panel with connection state, ICE state, data-channel state, bitrates, RTT, loss, frame counts, and outgoing resolution.
