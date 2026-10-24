@@ -1,6 +1,12 @@
-# Quick Call — Phase 1
+# Quick Call
 
 A static, serverless, two-person WebRTC video call built with React, TypeScript, and Vite.
+
+![Quick Call start screen](docs/images/quick-call.png)
+
+Start a call, exchange invitation and response links, and talk directly between browsers. No account or installation is required.
+
+This is a Phase 1 prototype: one-to-one calls with camera and microphone controls, manual signaling, and connection diagnostics. Direct connections are best effort; some mobile and corporate networks cannot connect without a relay.
 
 ## Run locally
 
@@ -40,4 +46,8 @@ npm run deploy
 
 Wrangler publishes `./dist` and serves `index.html` as the fallback for SPA routes.
 
-Development builds include a per-peer diagnostics panel with connection state, ICE state, data-channel state, bitrates, RTT, loss, frame counts, and outgoing resolution.
+## Connection diagnostics
+
+During a call, expand **Connection diagnostics** below the link-sharing controls. It shows connection and ICE state, the control channel, candidate types, IPv4/IPv6 availability, and the selected route.
+
+Start from `http://localhost:5173/?debug=1` (or add `?debug=1` to your deployed URL) to enable periodic statistics, including bitrates, RTT, packet loss, frame counts, and outgoing resolution. Development builds enable these statistics automatically. The debug flag is preserved in invitation and response links.
