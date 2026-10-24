@@ -93,7 +93,7 @@ export class HostCallController extends BaseCallController {
       if (state === 'connected') this.status = 'connected';
       else if (state === 'failed') {
         this.status = 'failed';
-        this.error = "We couldn't create a direct connection. Try another Wi-Fi network or mobile internet.";
+        this.error = "We couldn't connect the call. Please try again or switch networks.";
       } else if (state === 'disconnected') this.status = 'disconnected';
       else if (state === 'closed') {
         this.status = 'disconnected';
@@ -115,6 +115,17 @@ export class HostCallController extends BaseCallController {
     this.status = 'ready';
     this.error = null;
     this.emitChange();
+  }
+
+  async retryInvitation(): Promise<InvitePayload> {
+    if (this.status === 'connected') throw new Error('The call is already connected.');
+    this.peer?.close();
+    this.peer = null;
+    this.slotId = null;
+    this.invitePayload = null;
+    this.remotePeerId = null;
+    this.error = null;
+    return this.createInvitation();
   }
 
   override leave(): void {

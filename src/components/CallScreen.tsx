@@ -88,7 +88,20 @@ export function CallScreen({ controller, onLeave }: Props) {
           />
         )}
         {isHost && controller.peer && controller.status !== 'connected' && <ImportResponse onImport={importResponse} />}
+        {isHost && controller.status === 'failed' && (
+          <div className="retry-panel">
+            <p>Create a fresh invitation and exchange both new links.</p>
+            <button className="primary-button" onClick={() => void controller.retryInvitation()}>
+              Try a new direct connection
+            </button>
+          </div>
+        )}
         {controller.error && <p className="error-message error-message--call" role="alert">{controller.error}</p>}
+        <DebugPanel
+          peer={controller.peer}
+          peerId={isHost ? controller.remotePeerId : controller.hostPeerId}
+          open={controller.status === 'failed'}
+        />
       </section>
 
       <CallControls
@@ -97,7 +110,6 @@ export function CallScreen({ controller, onLeave }: Props) {
         onToggleCamera={() => controller.toggleCamera()}
         onLeave={onLeave}
       />
-      <DebugPanel peer={controller.peer} peerId={isHost ? controller.remotePeerId : controller.hostPeerId} />
     </main>
   );
 }

@@ -57,14 +57,16 @@ export class GuestCallController extends BaseCallController {
       const state = this.peer?.connection.connectionState;
       if (state === 'connected') this.status = 'connected';
       else if (state === 'failed') {
-        this.status = 'failed';
-        this.error = "We couldn't create a direct connection. Try another Wi-Fi network or mobile internet.";
+        // The guest cannot know whether the host has imported the manual response yet.
+        // Keep the response visible instead of reporting a premature network failure.
+        this.status = 'waiting-for-response';
+        this.error = null;
       } else if (state === 'disconnected') this.status = 'disconnected';
       else if (state === 'closed') {
         this.status = 'disconnected';
         this.error = 'The other person left the call.';
       }
-      else if (state === 'connecting') this.status = 'connecting';
+      else if (state === 'connecting' && this.status !== 'waiting-for-response') this.status = 'connecting';
       this.emitChange();
     };
     this.peer.connection.addEventListener('connectionstatechange', update);

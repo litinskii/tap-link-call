@@ -51,15 +51,20 @@ export class PeerController extends EventTarget {
     this.connection.addEventListener('datachannel', (event) => this.attachDataChannel(event.channel));
 
     if (createDataChannel) this.attachDataChannel(this.connection.createDataChannel('control', { ordered: true }));
-    if (import.meta.env.DEV) this.startStats();
+    if (this.diagnosticsEnabled()) this.startStats();
   }
 
   private emptyDebugStats(): PeerDebugStats {
     return {
       connectionState: this.connection?.connectionState ?? 'new',
       iceConnectionState: this.connection?.iceConnectionState ?? 'new',
+      iceGatheringState: this.connection?.iceGatheringState ?? 'new',
       signalingState: this.connection?.signalingState ?? 'stable',
       dataChannelState: 'none',
+      localCandidates: '—',
+      remoteCandidates: '—',
+      selectedCandidatePair: '—',
+      hasIpv6Candidate: false,
       resolution: '—',
       outgoingKbps: 0,
       incomingKbps: 0,
@@ -116,6 +121,7 @@ export class PeerController extends EventTarget {
       ...this.debugStats,
       connectionState: this.connection.connectionState,
       iceConnectionState: this.connection.iceConnectionState,
+      iceGatheringState: this.connection.iceGatheringState,
       signalingState: this.connection.signalingState,
       dataChannelState: this.controlChannel?.readyState ?? 'none',
     };
@@ -135,6 +141,10 @@ export class PeerController extends EventTarget {
     };
     void update();
     this.statsTimer = window.setInterval(() => void update(), 3_000);
+  }
+
+  private diagnosticsEnabled(): boolean {
+    return import.meta.env.DEV || new URLSearchParams(window.location.search).get('debug') === '1';
   }
 
   private emitChange(): void {

@@ -194,6 +194,8 @@ h1, h2 { font-family: ui-rounded, 'SF Pro Rounded', 'Segoe UI', system-ui, sans-
 .import-form label { font-weight: 700; }
 .import-form textarea { width: 100%; resize: vertical; padding: 12px; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; background: white; }
 .error-message--call { width: min(100%, 620px); text-align: center; }
+.retry-panel { display: grid; justify-items: center; gap: 10px; width: min(100%, 620px); padding: 16px; text-align: center; background: rgba(255,255,255,.78); border-radius: 18px; }
+.retry-panel p { margin: 0; color: var(--muted); }
 
 .call-controls { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 10; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid rgba(255,255,255,.86); border-radius: 22px; background: rgba(247,250,248,.9); box-shadow: 0 16px 40px rgba(30,55,48,.2); backdrop-filter: blur(16px); }
 .control-button { min-width: 82px; min-height: 64px; display: grid; place-items: center; align-content: center; gap: 4px; padding: 7px 12px; border: 0; border-radius: 16px; color: var(--ink); background: transparent; font-size: .78rem; font-weight: 600; cursor: pointer; }
@@ -204,7 +206,7 @@ h1, h2 { font-family: ui-rounded, 'SF Pro Rounded', 'Segoe UI', system-ui, sans-
 .control-button--leave { color: white; background: #c8494d; }
 .control-button--leave:hover { background: #ae383d; }
 
-.debug-panel { max-width: 760px; margin: 28px auto 0; padding: 14px 16px; border: 1px dashed #a9bbb4; border-radius: 14px; color: #526a62; font: 12px/1.5 ui-monospace, monospace; }
+.debug-panel { width: min(100%, 760px); margin: 12px auto 0; padding: 14px 16px; border: 1px dashed #a9bbb4; border-radius: 14px; color: #526a62; background: rgba(255,255,255,.64); font: 12px/1.5 ui-monospace, monospace; }
 .debug-panel summary { cursor: pointer; font-weight: 700; }
 .debug-panel dl { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }
 .debug-panel dt { color: #789087; }

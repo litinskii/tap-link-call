@@ -41,8 +41,13 @@ export type ConnectionStatus =
 export type PeerDebugStats = {
   connectionState: RTCPeerConnectionState;
   iceConnectionState: RTCIceConnectionState;
+  iceGatheringState: RTCIceGatheringState;
   signalingState: RTCSignalingState;
   dataChannelState: RTCDataChannelState | 'none';
+  localCandidates: string;
+  remoteCandidates: string;
+  selectedCandidatePair: string;
+  hasIpv6Candidate: boolean;
   resolution: string;
   outgoingKbps: number;
   incomingKbps: number;

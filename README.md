@@ -19,7 +19,7 @@ npm run dev
 4. If automatic delivery fails, paste the response URL into **Connection problem? Import response** in Browser A's call tab.
 5. Keep both original call tabs open. Media and the control channel connect directly between them.
 
-There is intentionally no backend, room server, database, WebSocket signaling, or TURN server. Some restrictive network combinations cannot connect without TURN; the UI reports that limitation in plain language.
+There is intentionally no backend, room server, database, WebSocket signaling, TURN server, or media server. Calls are direct P2P and therefore may not connect through restrictive carrier or corporate networks.
 
 ## Checks
 

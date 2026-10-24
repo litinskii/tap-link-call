@@ -90,7 +90,9 @@ export function decodePayload(value: string): SignalingPayload {
 
 export function buildSignalingUrl(payload: SignalingPayload, baseUrl = window.location.href): string {
   const url = new URL(baseUrl);
+  const debug = url.searchParams.get('debug');
   url.search = '';
+  if (debug === '1') url.searchParams.set('debug', '1');
   url.hash = `${payload.type}=${encodePayload(payload)}`;
   return url.toString();
 }
